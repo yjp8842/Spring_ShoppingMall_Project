@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.regex.Pattern;
+
+import static com.example.shoppingmall.utils.CheckUtils.isAlpha;
+import static com.example.shoppingmall.utils.CheckUtils.isNumber;
+
 @RestController
 @AllArgsConstructor
 public class ProductController {
@@ -15,15 +20,24 @@ public class ProductController {
     // 상품 개별 등록
     @PostMapping("/products")
     public void registerProduct(@RequestBody Product product) {
+        // 유효성 검사 : name(영어), price(숫자)
+        // 1) 조건문
+        if (isAlpha(product.getName()))
+            System.out.println("name은 알파벳!");
+        if (isNumber(product.getPrice()))
+            System.out.println("price는 숫자!");
+
         productService.registerProduct(product);
         System.out.println("/products : controller - " + product.getName());
-        
-        // 유효성 검사 : name, price, description
-        // 1) 조건문
-        if (product.getName() == null || product.getDescription() == null) {
-            System.out.println("데이터를 모두 입력해주세요!");
-        }
     }
+
+//    private boolean isNumber(Integer num) {
+//        return Pattern.matches("^[0-9]*$", Integer.toString(num));
+//    }
+//
+//    private boolean isAlpha(String str) {
+//        return Pattern.matches("^[a-zA-Z]*$", str);
+//    }
 
     // 상품 전체, 카테고리별 조회
     // 상품 개별 조회
