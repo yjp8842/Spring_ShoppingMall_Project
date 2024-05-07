@@ -2,7 +2,7 @@ package com.example.shoppingmall.utils;
 
 import java.util.regex.Pattern;
 
-public class CheckUtils {
+public class Validator {
     public static boolean isNumber(Integer num) {
         return Pattern.matches("^[0-9]*$", Integer.toString(num));
     }

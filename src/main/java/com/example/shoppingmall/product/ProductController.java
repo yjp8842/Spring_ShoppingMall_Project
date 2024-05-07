@@ -1,15 +1,12 @@
 package com.example.shoppingmall.product;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.regex.Pattern;
-
-import static com.example.shoppingmall.utils.CheckUtils.isAlpha;
-import static com.example.shoppingmall.utils.CheckUtils.isNumber;
+import static com.example.shoppingmall.utils.Validator.isAlpha;
+import static com.example.shoppingmall.utils.Validator.isNumber;
 
 @RestController
 @AllArgsConstructor
