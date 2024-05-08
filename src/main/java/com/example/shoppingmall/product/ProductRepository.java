@@ -8,14 +8,16 @@ import java.util.Map;
 @Repository
 public class ProductRepository {
     Map<Integer, Product> product_table = new HashMap<>();
-    int id = 0;
+    int id = 0; // DB auto_increment
 
-    public void save(Product product) {
+    public Product save(Product product) {
+        product.setId(id);
         product_table.put(id++, product);
         System.out.println("/products : repository - " + product_table.get(id - 1));
+        return product_table.get(id);
     }
 
-    public void find() {
-
+    public Product findProduct(int id) {
+        return product_table.get(id);
     }
 }
