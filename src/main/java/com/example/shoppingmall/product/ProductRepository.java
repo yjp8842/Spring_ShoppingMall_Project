@@ -14,7 +14,7 @@ public class ProductRepository {
         product.setId(id);
         product_table.put(id++, product);
         System.out.println("/products : repository - " + product_table.get(id - 1));
-        return product_table.get(id);
+        return product_table.get(id - 1);
     }
 
     public Product findProduct(int id) {
