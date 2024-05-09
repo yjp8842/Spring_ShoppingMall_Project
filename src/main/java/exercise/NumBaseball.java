@@ -1,38 +1,54 @@
 package exercise;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class NumBaseball {
     public static void main(String[] args) {
         int[] numArr = new int[3];
         int[] inputArr = new int[3];
+        String result = "";
         int count = 0;
         int strike = 0;
         int ball = 0;
         int out = 0;
         int flag = 0;
+        boolean isDuplicate = false;
 
         randomNum(numArr);
 
-        System.out.println("정답 : " + numArr[0] + numArr[1] + numArr[2]);
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("숫자를 입력하세요.(띄어쓰기 혹은 한 줄씩)");
-            for (int i = 0; i < 3; i++) {
-                try {
-                    inputArr[i] = scanner.nextInt();
-//                    for (int j = 0; j < i; j++) {
-//                        if (inputArr[i] == inputArr[j]) {
-//                            System.out.println("다시 입력해주세요.");
-//                            i--;
-//                            break;
-//                        }
-//                    }
-                } catch (InputMismatchException e) {
-                    System.out.println("숫자만 입력 가능합니다. 다시 입력해주세요.");
-                    scanner.nextLine();
+            System.out.println("3개의 숫자를 입력하세요.(띄어쓰기)");
+            String inputLine = scanner.nextLine();
+            String[] inputs = inputLine.split(" ");
+            result = "";
+
+            if (inputs.length != 3) {
+                System.out.println("3개의 숫자만 입력 가능합니다.");
+                continue;
+            }
+
+            try {
+                isDuplicate = false;
+                for (int i = 0; i < 3; i++) {
+                    inputArr[i] = Integer.parseInt(inputs[i]);
+                    for (int j = 0; j < i; j++) {
+                        if (inputArr[i] == inputArr[j]) {
+                            System.out.println("중복된 숫자가 없도록 입력해주세요.");
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+                    if (isDuplicate) break;
                 }
+            } catch (NumberFormatException e) {
+                System.out.println("숫자만 입력 가능합니다. 다시 3개의 숫자를 입력해주세요.");
+                continue;
+            }
+
+            if (isDuplicate) {
+                count++;
+                continue;
             }
 
             strike = 0;
@@ -56,7 +72,14 @@ public class NumBaseball {
                     out++;
             }
 
-            System.out.println(strike + "S " + ball + "B " + out + "O");
+            if (strike > 0)
+                result += strike + "S ";
+            if (ball > 0)
+                result += ball + "B ";
+            if (out > 0)
+                result += out + "O";
+
+            System.out.println(result);
             count++;
 
             if (count == 10) {

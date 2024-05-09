@@ -1,6 +1,4 @@
-package exercise;
-
-import com.example.shoppingmall.utils.Validator;
+package exercise.exception;
 
 import java.util.Scanner;
 
