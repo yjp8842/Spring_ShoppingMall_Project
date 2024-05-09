@@ -42,7 +42,7 @@ public class ProductController {
     public ResponseEntity<List<Product>> findProducts(
             @RequestParam("limit") int limit,
             @RequestParam("currentPage") int currentPage,
-            @RequestParam(value = "categoryId", required = false) int categoryId
+            @RequestParam(value = "categoryId", required = false) Integer categoryId
     ) {
         log.info("limit = {}", limit);
         log.info("currentPage = {}", currentPage);
