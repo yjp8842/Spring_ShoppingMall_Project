@@ -19,7 +19,15 @@ public class ProductService {
         return productRepository.findProduct(id);
     }
 
-    public List<Product> findAllProducts(int limit, int currentPage) {
-        return productRepository.findAllProducts(limit, currentPage);
+    public List<Product> findProducts(int limit, int currentPage, Integer categoryId) {
+        return productRepository.findProducts(limit, currentPage, categoryId);
+    }
+
+    public void deleteProduct(int id) {
+        productRepository.deleteProduct(id);
+    }
+
+    public void deleteProducts(List<Integer> productIds) {
+        productRepository.deleteProducts(productIds);
     }
 }
