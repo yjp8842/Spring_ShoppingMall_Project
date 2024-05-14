@@ -1,5 +1,6 @@
 package com.example.shoppingmall.member;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,6 +9,7 @@ import lombok.ToString;
 @Setter
 //@ToString
 public class Member {
+    @JsonProperty("user_id")
     private String userId;
     private String name;
     private String password;

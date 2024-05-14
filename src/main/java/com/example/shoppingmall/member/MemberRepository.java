@@ -16,6 +16,10 @@ public class MemberRepository {
         return savedMember.getUserId();
     }
 
+    public Member findById(String userId) {
+        return memberTable.get(userId);
+    }
+
     public String signIn(Map<String, String> userInfo) {
         String result = "";
 

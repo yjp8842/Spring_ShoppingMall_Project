@@ -10,8 +10,18 @@ import java.util.Map;
 public class MemberService {
     MemberRepository memberRepository;
 
-    public String signUp(Member member) {
+    public String join(Member member) {
         return memberRepository.save(member);
+    }
+
+    public boolean checkDuplicateId(String userId) {
+        Member existMember
+                = memberRepository.findById(userId);
+
+        if (existMember == null)
+            return false;
+        else
+            return true;
     }
 
     public String signIn(Map<String, String> userInfo) {
