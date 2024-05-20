@@ -9,7 +9,7 @@ public class ApiUtils {
         return new ApiResult(true, data, null);
     }
 
-    public static <T> ApiResult<T> error(String message, HttpStatus httpStatus) {
+    public static <M> ApiResult<M> error(M message, HttpStatus httpStatus) {
         return new ApiResult(false,
                 null,
                 new ApiError(message, httpStatus));
@@ -25,8 +25,8 @@ public class ApiUtils {
 
     @Getter
     @AllArgsConstructor
-    static class ApiError {
-        String message;
+    static class ApiError<M> {
+        M message;
         HttpStatus httpStatus;
     }
 }

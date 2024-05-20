@@ -14,7 +14,7 @@ public class OrderController {
     ProductService productService;
 
     @PostMapping("/orders")
-    public void orderProducts(@RequestBody OrderDTO orderDTO) {
+    public void orderProducts(@RequestBody OrderDto orderDTO) {
         Product orderedProduct = productService.findProduct(orderDTO.getProductId());
 
         // TODO : 서비스로 이사 갈 코드 DTO -> Entity

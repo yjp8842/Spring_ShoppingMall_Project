@@ -1,13 +1,18 @@
 package com.example.shoppingmall.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
 @Repository
 public class MemberRepository {
     Map<String, Member> memberTable = new HashMap<>();
+
+    @Autowired
+    DataSource dataSource;
 
     public String save(Member member) {
         memberTable.put(member.getUserId(), member);
