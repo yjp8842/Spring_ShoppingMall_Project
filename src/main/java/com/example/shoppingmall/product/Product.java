@@ -11,12 +11,14 @@ import lombok.Setter;
 public class Product {
     @Id
     private int id;
+    private int productId;
     private int categoryId;
     private String name;
     private int price;
     private String description;
 
-    public Product(int categoryId, String name, int price, String description) {
+    public Product(int productId, int categoryId, String name, int price, String description) {
+        this.productId = productId;
         this.categoryId = categoryId;
         this.name = name;
         this.price = price;

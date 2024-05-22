@@ -11,7 +11,11 @@ import lombok.Setter;
 public class ProductDto {
     private int id;
 
-    @NotBlank(message = "id는 필수 입력값입니다.")
+    @NotBlank(message = "상품 아이디는 필수 입력값입니다.")
+    @JsonProperty("product_id")
+    private int productId;
+
+    @NotBlank(message = "카테고리 아이디는 필수 입력값입니다.")
     @JsonProperty("category_id")
     private int categoryId;
 
@@ -25,6 +29,6 @@ public class ProductDto {
     private String description;
 
     public Product convertToEntity() {
-        return new Product(categoryId, name, price, description);
+        return new Product(productId, categoryId, name, price, description);
     }
 }

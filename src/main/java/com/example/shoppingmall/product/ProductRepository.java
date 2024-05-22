@@ -1,34 +1,19 @@
 package com.example.shoppingmall.product;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findById(int id);
     
-    // 모든 상품 조회
-    List<Product> findProducts(int limit, int currentPage, Integer categoryId) {
-        // limit, currentPage => 상품 id 범위
-        // (currentPage - 1) * limit ~ (currentPage * limit) - 1 까지
-        if (categoryId == null) {
-            return productTable.values().stream().toList();
-        } else {
-            List<Product> resultProducts = new ArrayList<>();
-
-            for (Product product : productTable.values()) {
-                if (product.getCategoryId() == categoryId)
-                    resultProducts.add(product);
-            }
-
-            return resultProducts;
-        }
-    }
+    // 카테고리별 상품 조회
+    @Query("SELECT p FROM Product p WHERE (:categoryId IS NULL OR p.categoryId = :categoryId)")
+    List<Product> findProductsByCategoryId(Integer categoryId, Pageable pageable);
 
     void deleteById(int id);
 

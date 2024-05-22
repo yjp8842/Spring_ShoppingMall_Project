@@ -5,7 +5,6 @@ import com.example.shoppingmall.utils.Validator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,10 +53,16 @@ public class ProductController {
         List<Product> products;
 
         if (categoryId == null) {
-            products = productService.findProducts(limit, currentPage, null);
-            return error("상품이 없습니다.", HttpStatus.BAD_REQUEST);
+            products = productService.findAllProducts();
+            if (products == null)
+                return error("상품이 없습니다.", HttpStatus.BAD_REQUEST);
+            
+            return success(products);
         } else {
-            products = productService.findProducts(limit, currentPage, categoryId);
+            products = productService.findProductsByCategoryId(limit, currentPage, categoryId);
+            if (products == null)
+                return error("해당 카테고리에 대한 상품이 없습니다.", HttpStatus.BAD_REQUEST);
+
             return success(products);
         }
     }
