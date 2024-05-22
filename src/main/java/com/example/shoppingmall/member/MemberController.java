@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.example.shoppingmall.utils.ApiUtils.error;
 import static com.example.shoppingmall.utils.ApiUtils.success;
@@ -28,8 +29,8 @@ public class MemberController {
 
         Member requestMember = memberDTO.convertToEntity();
 
-        String userId = memberService.join(requestMember);
-        return success(userId);
+        Member user = memberService.join(requestMember);
+        return success(user.getUserId());
     }
 
     private boolean isDuplicateId(MemberDto memberDTO) {
@@ -50,10 +51,13 @@ public class MemberController {
         return error(errorMessages, HttpStatus.BAD_REQUEST);
     }
 
-//    @PostMapping("/signin")
-//    public ResponseEntity<Map<String, String>> signIn(@RequestBody Map<String, String> userInfo) {
-//        String result = memberService.signIn(userInfo);
-//
-//
-//    }
+    @PostMapping("/signin")
+    public ApiUtils.ApiResult signIn(@RequestBody String userId, String password) {
+        Member result = memberService.signIn(userId, password);
+
+        if (result == null)
+            return error("아이디 혹은 비밀번호가 틀렸습니다.", HttpStatus.BAD_REQUEST);
+
+        return success(result);
+    }
 }

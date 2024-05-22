@@ -1,10 +1,18 @@
 SELECT * FROM member;
 
 CREATE TABLE member (
-    id INT NOT NULL PRIMARY KEY,
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     user_id VARCHAR(50) NOT NULL,
     name VARCHAR(20) NOT NULL,
     password VARCHAR(20) NOT NULL,
     email VARCHAR(20) NOT NULL,
     contact VARCHAR(20) NOT NULL
+)
+
+CREATE TABLE product (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    category_id INT NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    price INT NOT NULL,
+    description VARCHAR(250) NOT NULL
 )

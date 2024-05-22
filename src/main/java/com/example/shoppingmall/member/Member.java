@@ -1,14 +1,17 @@
 package com.example.shoppingmall.member;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
+@Entity
+@NoArgsConstructor
 public class Member {
+    @Id
     private int id;
     private String userId;
     private String name;
@@ -34,14 +37,14 @@ public class Member {
         );
     }
 
-    @Override
-    public String toString() {
-        return "Member{" +
-                "userId='" + userId + '\'' +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", contact='" + contact + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Member{" +
+//                "userId='" + userId + '\'' +
+//                ", name='" + name + '\'' +
+//                ", password='" + password + '\'' +
+//                ", email='" + email + '\'' +
+//                ", contact='" + contact + '\'' +
+//                '}';
+//    }
 }
