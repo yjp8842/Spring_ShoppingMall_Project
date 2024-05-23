@@ -26,7 +26,7 @@ public class MemberService {
             return true;
     }
 
-    public Member signIn(String userId, String password) {
+    public Member signIn(String userId) {
         return memberRepository.findByUserId(userId);
     }
 

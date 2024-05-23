@@ -1,5 +1,7 @@
 package com.example.shoppingmall.member;
 
+import com.example.shoppingmall.member.MemberDto.MemberSignInDto;
+import com.example.shoppingmall.member.MemberDto.MemberSignUpDto;
 import com.example.shoppingmall.utils.ApiUtils;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import static com.example.shoppingmall.utils.ApiUtils.error;
 import static com.example.shoppingmall.utils.ApiUtils.success;
@@ -23,18 +24,25 @@ public class MemberController {
     MemberService memberService;
 
     @PostMapping("/join")
-    public ApiUtils.ApiResult join(@RequestBody @Valid MemberDto memberDTO) {
-        if(isDuplicateId(memberDTO))
+    public ApiUtils.ApiResult join(@RequestBody @Valid MemberSignUpDto memberSignUpDto) {
+
+        /**
+         * 회원가입 REQ : MemberSignInReq
+         * RES : MemberSignInRes
+         * Login Req : MemberLoginReq
+         */
+
+        if(isDuplicateId(memberSignUpDto))
             return error("아이디 중복", HttpStatus.CONFLICT);
 
-        Member requestMember = memberDTO.convertToEntity();
+        Member requestMember = memberSignUpDto.convertToEntity();
 
         Member user = memberService.join(requestMember);
         return success(user.getUserId());
     }
 
-    private boolean isDuplicateId(MemberDto memberDTO) {
-        return memberService.checkDuplicateId(memberDTO.getUserId());
+    private boolean isDuplicateId(MemberSignUpDto memberSignUpDto) {
+        return memberService.checkDuplicateId(memberSignUpDto.getUserId());
     }
 
     @ExceptionHandler
@@ -52,12 +60,14 @@ public class MemberController {
     }
 
     @PostMapping("/signin")
-    public ApiUtils.ApiResult signIn(@RequestBody String userId, String password) {
-        Member result = memberService.signIn(userId, password);
+    public ApiUtils.ApiResult signIn(@RequestBody MemberSignInDto memberSignInDto) {
+        Member resultMember = memberService.signIn(memberSignInDto.getUserId());
 
-        if (result == null)
-            return error("아이디 혹은 비밀번호가 틀렸습니다.", HttpStatus.BAD_REQUEST);
+        if (resultMember == null)
+            return error("아이디가 틀렸습니다.", HttpStatus.BAD_REQUEST);
 
-        return success(result);
+        if (!resultMember.getPassword().equals(memberSignInDto.getPassword()))
+            return error("비밀번호가 틀렸습니다.", HttpStatus.BAD_REQUEST);
+        return success(resultMember);
     }
 }

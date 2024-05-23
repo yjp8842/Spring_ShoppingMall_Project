@@ -1,5 +1,6 @@
-package com.example.shoppingmall.member;
+package com.example.shoppingmall.member.MemberDto;
 
+import com.example.shoppingmall.member.Member;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -8,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MemberDto {
+public class MemberSignUpDto {
     // MemberRequestDto, MemberResponseDto
     // SignUpReqDto, SignUpResDto
     // LoginReqDto, LoginResDto

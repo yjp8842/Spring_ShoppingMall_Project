@@ -1,5 +1,5 @@
 package com.example.shoppingmall.member;
-
+import com.example.shoppingmall.member.MemberDto.MemberSignUpDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -27,13 +27,13 @@ public class Member {
         this.contact = contact;
     }
 
-    public static Member fromDtoToEntity(MemberDto memberDto) {
+    public static Member fromDtoToEntity(MemberSignUpDto memberSignUpDto) {
         return new Member(
-                memberDto.getUserId(),
-                memberDto.getName(),
-                memberDto.getPassword(),
-                memberDto.getEmail(),
-                memberDto.getContact()
+                memberSignUpDto.getUserId(),
+                memberSignUpDto.getName(),
+                memberSignUpDto.getPassword(),
+                memberSignUpDto.getEmail(),
+                memberSignUpDto.getContact()
         );
     }
 
