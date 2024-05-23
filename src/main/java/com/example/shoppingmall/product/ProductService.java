@@ -16,7 +16,7 @@ public class ProductService {
     public Product registerProduct(Product product) {
         productRepository.save(product);
 
-        return productRepository.findById(product.getId());
+        return productRepository.findByProductId(product.getProductId());
     }
 
     public Product findProduct(int id) {
@@ -33,10 +33,10 @@ public class ProductService {
     }
 
     public void deleteProduct(int id) {
-        productRepository.deleteById(id);
+        productRepository.deleteById((long) id);
     }
 
-    public void deleteProducts(List<Integer> productIds) {
-        productRepository.deleteByProductIds(productIds);
-    }
+//    public void deleteProducts(List<Integer> productIds) {
+//        productRepository.deleteAllById(productIds);
+//    }
 }

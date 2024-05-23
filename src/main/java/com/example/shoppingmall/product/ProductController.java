@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 import static com.example.shoppingmall.utils.ApiUtils.error;
 import static com.example.shoppingmall.utils.ApiUtils.success;
@@ -25,8 +24,6 @@ public class ProductController {
     public ApiUtils.ApiResult registerProduct(@RequestBody Product product) {
         if (Validator.isAlpha(product.getName()) &&
                 Validator.isNumber(product.getPrice())) {
-            System.out.println("여기 !!!");
-            log.info("product.getName() = {}", product.getName());
 
             Product savedProduct = productService.registerProduct(product);
 
@@ -56,7 +53,7 @@ public class ProductController {
             products = productService.findAllProducts();
             if (products == null)
                 return error("상품이 없습니다.", HttpStatus.BAD_REQUEST);
-            
+
             return success(products);
         } else {
             products = productService.findProductsByCategoryId(limit, currentPage, categoryId);
@@ -85,31 +82,31 @@ public class ProductController {
     }
 
     // 상품 1개 삭제
-    @DeleteMapping("/products/{id}")
-    public ApiUtils.ApiResult deleteProduct(@PathVariable(value = "id") int id) {
-        if (!Validator.isNumber(id)) {
-            return error("id는 숫자여야 합니다.", HttpStatus.BAD_REQUEST);
-        }
-
-        productService.deleteProduct(id);
-        Product product = productService.findProduct(id);
-        if (product == null)
-            return success("상품이 삭제되었습니다.");
-        else
-            return error("상품이 삭제되지 않습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @DeleteMapping("/products/{id}")
+//    public ApiUtils.ApiResult deleteProduct(@PathVariable(value = "id") int id) {
+//        if (!Validator.isNumber(id)) {
+//            return error("id는 숫자여야 합니다.", HttpStatus.BAD_REQUEST);
+//        }
+//
+//        productService.deleteProduct(id);
+//        Product product = productService.findProduct(id);
+//        if (product == null)
+//            return success("상품이 삭제되었습니다.");
+//        else
+//            return error("상품이 삭제되지 않습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
     // 상품 여러 개 삭제
-    @PostMapping("/products/delete")
-    public ApiUtils.ApiResult deleteProducts(@RequestBody Map<String, List<Integer>> deleteRequest) {
-        List<Integer> productIds = deleteRequest.get("productIds");
-
-        if (productIds.isEmpty()) {
-
-            return error("상품 id가 비어있습니다.", HttpStatus.BAD_REQUEST);
-        }
-
-        productService.deleteProducts(productIds);
-        return success("상품이 모두 삭제되었습니다.");
-    }
+//    @PostMapping("/products/delete")
+//    public ApiUtils.ApiResult deleteProducts(@RequestBody Map<String, List<Integer>> deleteRequest) {
+//        List<Integer> productIds = deleteRequest.get("productIds");
+//
+//        if (productIds.isEmpty()) {
+//
+//            return error("상품 id가 비어있습니다.", HttpStatus.BAD_REQUEST);
+//        }
+//
+//        productService.deleteProducts(productIds);
+//        return success("상품이 모두 삭제되었습니다.");
+//    }
 }
