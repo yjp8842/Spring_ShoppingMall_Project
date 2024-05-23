@@ -1,1 +1,1 @@
-# Springboot_ShoppingMall
+# Spring_ShoppingMall_Project
