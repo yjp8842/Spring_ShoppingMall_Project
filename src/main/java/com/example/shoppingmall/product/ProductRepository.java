@@ -17,6 +17,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 //    // 카테고리별 상품 조회
     @Query("SELECT p FROM Product p WHERE (:categoryId IS NULL OR p.categoryId = :categoryId)")
     List<Product> findProductsByCategoryId(@Param("categoryId") Integer categoryId, Pageable pageable);
-
-//    void deleteAllById(List<Integer> productIds);
 }
